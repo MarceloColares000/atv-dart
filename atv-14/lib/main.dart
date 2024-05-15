@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
   String _idade = '';
   String _salario = '';
   TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerIdade = TextEditingController();
-  TextEditingController _controllerSalario = TextEditingController();
+  TextEditingController _controller1 = TextEditingController();
+  TextEditingController _controller3 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,14 +61,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Text(
-              'Qual é a sua idade? ',
+              'Digite sua idade: ',
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 20.0),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 50.0),
               child: TextField(
-                controller: _controllerIdade,
+                controller: _controller1,
                 onChanged: (value) {
                   setState(
                     () {
@@ -77,19 +77,19 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 decoration: InputDecoration(
-                  hintText: 'Qual é a sua idade? ',
+                  hintText: 'Digite sua idade: ',
                 ),
               ),
             ),
             Text(
-              'Qual o seu salário? ',
+              'Digite seu salário: ',
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 20.0),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 50.0),
               child: TextField(
-                controller: _controllerSalario,
+                controller: _controller3,
                 onChanged: (value) {
                   setState(
                     () {
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 decoration: InputDecoration(
-                  hintText: 'Qual o seu salário? ',
+                  hintText: 'Digite seu salário: ',
                 ),
               ),
             ),
@@ -110,12 +110,14 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if (_nome.isNotEmpty) {
+                    if (_nome.isNotEmpty &
+                        _salario.isNotEmpty &
+                        _idade.isNotEmpty) {
                       _mostrarMensagem(context,
-                          'Olá, $_nome! Sua idade é $_idade e você tem um salário de $_salario');
+                          'Olá, Seu nome é: $_nome  idade: $_idade  salario: $_salario! ');
                     } else {
                       _mostrarMensagem(
-                          context, 'Por favor, preecha todos os campos.');
+                          context, 'Por favor, preencha os campos vazios.');
                     }
                   },
                   child: Text('Mostrar Saudação'),
@@ -124,9 +126,13 @@ class _HomePageState extends State<HomePage> {
                 ElevatedButton(
                   onPressed: () {
                     _controller.clear();
+                    _controller1.clear();
+                    _controller3.clear();
                     setState(
                       () {
                         _nome = '';
+                        _salario = '';
+                        _idade = '';
                       },
                     );
                   },
